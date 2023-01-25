@@ -1,4 +1,4 @@
-//10 question with answers
+//Added questions array - 10 question with answers
 var questions = [
   {
     title: "HTML stands for __________",
@@ -32,29 +32,29 @@ var questions = [
   },
   {
     title:
-      "Which one of these is not among the three different types of errors in JavaScript?",
+      "Which type of JavaScript language is ___",
     choices: [
-      "Animation time errors",
-      "Load time errors",
-      "Run time errors",
-      "Logical Errors"
+      "Object-Oriented",
+      "Object-Based",
+      "Assembly-language",
+      "High-level"
     ],
-    answer: "Animation time errors"
+    answer: "Object-Based"
   },
   {
-    title: "What is the data type of variables in JavaScript?",
+    title: "Which one of the following also known as Conditional Expression:",
     choices: [
-      "Object data types",
-      "Function data type",
-      "None of the above",
-      "All of the above"
+      "Alternative to if-else",
+      "Switch statement",
+      "If-then-else statement",
+      "immediate if"
     ],
-    answer: "Object data types"
+    answer: "immediate if"
   },
   {
-    title: "The condition in an if / else statement is enclosed within ____.",
-    choices: ["quotes", "curly brackets", "parentheses", "square brackets"],
-    answer: "parentheses"
+    title: "The function and var are known as",
+    choices: ["Keywords", "Data types", "Declaration statements", "Prototypes"],
+    answer: "Declaration statements"
   },
   {
     title: "Arrays in JavaScript can be used to store ____.",
@@ -68,20 +68,20 @@ var questions = [
   },
   {
     title:
-      "String values must be enclosed within ____ when being assigned to variables.",
-    choices: ["commas", "curly brackets", "quotes", "parentheses"],
-    answer: "quotes"
+      "In the JavaScript, which one of the following is not considered as an error:",
+    choices: ["Syntax error", "Missing of semicolons", "Division by zero", "Missing of Bracket"],
+    answer: "Division by zero"
   },
   {
     title:
-      "A very useful tool used during development and debugging for printing content to the debugger is:",
-    choices: ["JavaScript", "terminal / bash", "for loops", "console.log"],
-    answer: "console.log"
+      "Which of the following function of the String object returns the character in the string starting at the specified position via the specified number of characters?",
+    choices: ["slice()", "split()", "substr()", "search()"],
+    answer: "substr()"
   },
 ];
 
 
-//Query selector to select html elements
+//Web API DOM selector to slect id of html tags
 var questionsEl = document.querySelector("#questions");
 var timerEl = document.querySelector("#time");
 var choicesEl = document.querySelector("#choices");
@@ -90,15 +90,16 @@ var startBtn = document.querySelector("#start");
 var initialsEl = document.querySelector("#initials");
 var feedbackEl = document.querySelector("#feedback");
 
-//Questions time
+//Time set up for each question
 var currentQuestionIndex = 0;
 var time = questions.length * 10;
 var timerId;
 
-// sound for correct and incorrect options
-const audioCorrect = new Audio("./assets/sfx/correct.wav");
-const audioIncorrect = new Audio("./assets/sfx/incorrect.wav");
+// sound effect for correct and incorrect options
+const soundCorrect = new Audio("./assets/sfx/correct.wav");
+const soundIncorrect = new Audio("./assets/sfx/incorrect.wav");
 
+//Created function to hide start screen and show question and start the timer
 function startQuiz() {
   
   var startScreenEl = document.getElementById("start-screen");
@@ -115,6 +116,10 @@ function startQuiz() {
 
   getQuestion();
 }
+
+
+/*function to show current question and show new question once answer is submitted
+for the question*/
 
 function getQuestion() {
  
@@ -144,6 +149,10 @@ function getQuestion() {
   });
 }
 
+/* If statements to check if use chose right or wrong option and 
+if wrong option is selected deduct 10 seconds from timer and generate sound effect 
+and view new time counter*/
+
 function questionClick() {
  
   if (this.value !== questions[currentQuestionIndex].answer) {
@@ -158,17 +167,17 @@ function questionClick() {
     timerEl.textContent = time;
     feedbackEl.textContent = "Wrong!";
     feedbackEl.style.color = "red";
-    feedbackEl.style.fontSize = "200%";
+    feedbackEl.style.fontSize = "100%";
 
    
-    audioIncorrect.play();
+    soundIncorrect.play();
   } else {
     feedbackEl.textContent = "Correct!";
     feedbackEl.style.color = "green";
-    feedbackEl.style.fontSize = "200%";
+    feedbackEl.style.fontSize = "100%";
 
    
-    audioCorrect.play();
+    soundCorrect.play();
   }
 
  
@@ -187,6 +196,9 @@ function questionClick() {
     getQuestion();
   }
 }
+
+/* function to stop the timer and show score and disply text input 
+for user to add their name*/
 
 function quizEnd() {
  
@@ -214,6 +226,8 @@ function clockTick() {
     quizEnd();
   }
 }
+
+//function to save scores 
 
 function saveHighscore() {
  
